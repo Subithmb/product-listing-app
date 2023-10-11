@@ -1,13 +1,14 @@
 const product=require('../models/ProductModel');
-const category=require('../models/CategoryModel');
+// const subcategory=require('../models/CategoryModel');
+const Category=require('../models/Category');
 
 
 
 //...............add Product .............................
 const AddProduct=async(req,res)=>{
     try {
-    //     console.log('came');
-        // console.log(req.body);
+        console.log('came');
+        console.log(req.body);
       
                 const{productname,categoryId}=req.body
                 // console.log(parent);
@@ -19,7 +20,7 @@ const AddProduct=async(req,res)=>{
 
                     // console.log(categoryId,'iddd');
                   
-                    const categoryData=await category.findById({_id:categoryId})
+                    const categoryData=await Category.findById({_id:categoryId})
 
                     // console.log(categoryData,'dataaaaaaaaa');
 
@@ -49,8 +50,8 @@ const ProductDatas=async(req,res)=>{
     try {
         console.log('came');
       
-                    const productData=await product.find().populate('category')
-                  
+        const productData = await product.find({})
+                  console.log(productData);
                          if(!productData){
                             return res.status(500).json({message:"unable to get category"}) 
                          }
