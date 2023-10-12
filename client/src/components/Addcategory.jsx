@@ -1,22 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, {  useState } from "react";
 
 import Buttons from "./CommonComponents/Buttons";
 import TextFields from "./CommonComponents/TextFields";
-import baseURL from '../Config/API'
+
 import axios from "axios";
 import NavBar from "./CommonComponents/Navbar";
 import { useNavigate } from "react-router-dom";
+import Footer from "./CommonComponents/Footer";
 const Addcategory = () => {
   const [name, setName] = useState("");
   const navigate=useNavigate()
-  const [categoryData, setcategoryData] = useState();
-
-  const [selectedOption, setSelectedOption] = useState("null");
-
-
-  const handleOptionChange = (event) => {
-    setSelectedOption(event.target.value);
-  };
+  
 
   const handleNameChange = (e) => {
     setName(e.target.value);
@@ -27,7 +21,7 @@ const Addcategory = () => {
    
     axios.post('http://localhost:5000/addcategory',{newCategory:name})
       .then((response) => {
-        console.log(response?.data?.categoryData);
+        // console.log(response?.data?.categoryData);
         if(response?.data?.categoryData){
             alert(response?.data?.message)
             navigate('/')
@@ -43,7 +37,7 @@ const Addcategory = () => {
     <>
     <NavBar/>
     <div  className="flex flex-wrap justify-around px-16 mt-24">
-    <p >add category</p>
+    <p className='font-semibold text-[#00df9a] text-2xl'>Add Category</p>
     </div>
       <div className="flex flex-wrap justify-around px-16 mt-4">
        
@@ -57,8 +51,9 @@ const Addcategory = () => {
       
 
       <div className="flex flex-wrap justify-around px-16 ">
-        <Buttons name="click" click={submit}/>
+        <Buttons name="Submit" click={submit}/>
       </div>
+      <Footer/>
     </>
   );
 };

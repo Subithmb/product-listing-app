@@ -1,109 +1,3 @@
-// import React, { useEffect, useState } from "react";
-
-// import Buttons from "./CommonComponents/Buttons";
-// import TextFields from "./CommonComponents/TextFields";
-// import baseURL from '../Config/API'
-// import axios from "axios";
-// import NavBar from "./CommonComponents/Navbar";
-
-// const AddProduct = () => {
-//   const [name, setName] = useState("");
-//   const [categoryData, setcategoryData] = useState();
-
-//   const [selectedOption, setSelectedOption] = useState("null");
-
-//   useEffect(() => {
-//     console.log(baseURL, 'yuuuuuuuuuuuuuuuuuuuuuu');
-//     axios.get('http://localhost:5000/categoryforProduct')
-//       .then((response) => {
-//         console.log(response?.data?.categoryData);
-//         setcategoryData(response?.data?.categoryData)
-//       })
-//       .catch((error) => {
-//         console.error('An error occurred:', error);
-//       });
-//   }, []);
-  
-
-//   const handleOptionChange = (event) => {
-//     setSelectedOption(event.target.value);
-//   };
-
-//   const handleNameChange = (e) => {
-//     setName(e.target.value);
-//   };
-
-//   const submit=()=>{
-//     console.log(name,selectedOption);
-//     if(selectedOption!='null'){
-
-//     axios.post('http://localhost:5000/addProduct',{productname:name,categoryId:selectedOption})
-//       .then((response) => {
-//         console.log(response?.data?.ProductData);
-//         alert(response?.data?.message)
-      
-//       })
-//       .catch((error) => {
-//         alert(error?.response?.data?.message)
-//         console.error('An error occurred:', error);
-//       });
-//     }else{
-
-//        alert('select one category')
-//     }
-//   }
-//   return (
-//     <>
-//     <NavBar/>
-//     <div  className="flex flex-wrap justify-around px-16 mt-24">
-//     <p >add Product</p>
-//     </div>
-//       <div className="flex flex-wrap justify-around px-16 mt-4">
-       
-//         <TextFields
-//           name="product name"
-//           type="text"
-//           value={name}
-//           onChange={handleNameChange}
-//         />
-//       </div>
-//       <div  className="flex flex-wrap justify-around px-16  mb-1">
-//         <p>select catgory</p>
-//       </div>
-
-       
-//       <div className="flex flex-wrap justify-around px-16 mb-2">
-       
-//         <select
-        
-//           value={selectedOption}
-//           onChange={handleOptionChange}
-//           className="border border-gray-300 text-black py-2 px-4 rounded inline-flex items-center focus:outline-none"
-//         >
-    
-//           <option value="null">choose</option>
-
-//         {categoryData?.map((data)=>{
-//             return(
-//                 <>
-//             <option value={data._id}>{data.name}</option>
-//                 </>
-//             )
-            
-//         })  }
-         
-//         </select>
-//       </div>
-
-//       <div className="flex flex-wrap justify-around px-16 ">
-//         <Buttons name="click" click={submit}/>
-//       </div>
-//     </>
-//   );
-// };
-
-// export default AddProduct;
-
 
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
@@ -111,28 +5,27 @@ import NavBar from './CommonComponents/Navbar';
 import TextFields from './CommonComponents/TextFields';
 import Buttons from './CommonComponents/Buttons';
 import { useNavigate } from 'react-router-dom';
+import Footer from './CommonComponents/Footer';
 
 const AddProduct = () => {
 
     const navigate=useNavigate()
     const [name, setName] = useState("");
     const [selectedOption, setSelectedOption] = useState("null");
-    const[productData,setProductData]=useState()
+    // const[productData,setProductData]=useState()
     const [categoryData, setcategoryData] = useState();
     const [status, setStatus] = useState(false);
     const [nameStatus, setNamestatus] = useState(false);
-
+    const [photo,setphoto] = useState(null)
     const handleOptionChange = (event) => {
     setSelectedOption(event.target.value);
   };
-
-
 
     useEffect(() => {
    
     axios.get('http://localhost:5000/category')
       .then((response) => {
-        console.log(response?.data?.categoryData);
+        // console.log(response?.data?.categoryData);
         setcategoryData(response?.data?.categoryData)
       })
       .catch((error) => {
@@ -144,14 +37,20 @@ const AddProduct = () => {
     setName(e.target.value);
   };
 
+  const handleImageChange=(e)=>{
+    
+    // console.log(e.target.files[0],'tagetfile');
+    const file = e.target.files[0];
+    setphoto(file)
+  }
     const subcategoryfinding=(id) => {
-       console.log('lllllllllllllllll');
-       console.log(id);
+      
+      //  console.log(id);
         axios.get(`http://localhost:5000/categoryforAddProduct?id=${id}`)
           .then((response) => {
-            console.log(response?.data?.categoryData,'dffffffffffffff');
-            console.log(response?.data?.categoryData?.length,'length');
-            if(response?.data?.categoryData?.length ==0){
+            // console.log(response?.data?.categoryData,'dffffffffffffff');
+            // console.log(response?.data?.categoryData?.length,'length');
+            if(response?.data?.categoryData?.length == 0){
                
                 setStatus(true)
             }else{
@@ -164,27 +63,31 @@ const AddProduct = () => {
           });
       }
 
-      const submit=()=>{
-        console.log(name,selectedOption,'selectedOption');
-
-        // console.log( addProduct,categoryId)
-       
-        axios.post('http://localhost:5000/addProduct',{productname:name,categoryId:selectedOption})
+      const submit = () => {
+        console.log(name, selectedOption, 'selectedOption');
+        const formData = new FormData();
+        formData.append('photo', photo);
+        formData.append('productname', name);
+        formData.append('categoryId', selectedOption);
+      
+        axios
+          .post('http://localhost:5000/addProduct', formData, {
+            headers: {
+              'Content-Type': 'multipart/form-data',
+            },
+          })
           .then((response) => {
             console.log(response?.data?.ProductData);
-            if(response?.data?.ProductData){
-                alert(response?.data?.message)
-                navigate('/')
+            if (response?.data?.ProductData) {
+              alert(response?.data?.message);
+              navigate('/');
             }
-          
           })
           .catch((error) => {
             console.error('An error occurred:', error);
           });
-       
-      }
-
-
+      };
+      
   return (
 
 
@@ -193,7 +96,7 @@ const AddProduct = () => {
         <NavBar/>
 
        <div  className="flex flex-wrap justify-around px-16 mt-10 mb-1">
-         <p className='font-semibold text-2xl'>ADD_PRODUCT</p>
+         <p className='font-semibold text-[#00df9a] text-2xl'>ADD PRODUCT</p>
       </div>
       {!status?<>
        <div  className="flex flex-wrap justify-around px-16 mt-10 mb-1">
@@ -221,7 +124,8 @@ const AddProduct = () => {
 
       </div></>:''}
 
-       {status? <><div className="flex flex-wrap justify-around px-16 mt-7">
+       {status? <div >
+        <div className="flex flex-wrap justify-around px-16 mt-7">
        <TextFields
          name="category name"
          type="text"
@@ -229,10 +133,14 @@ const AddProduct = () => {
          onChange={handleNameChange}
        />
      </div>
-     <div className="flex flex-wrap justify-around px-16 ">
-        <Buttons name="click" click={submit}/>
-      </div></>:''}
+       <div className="flex flex-wrap justify-around px-16">
 
+        <TextFields name="photo" type="file" input={true} onChange={handleImageChange}/>
+       </div>
+     <div className="flex flex-wrap justify-around px-16 ">
+        <Buttons name="Submit" click={submit}/>
+      </div></div>:''}
+      <Footer />
     </div>
    
   )

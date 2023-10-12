@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import NavBar from './CommonComponents/Navbar';
 import axios from 'axios';
+import Footer from './CommonComponents/Footer';
 
 
 const ProductCard = () => {
@@ -20,21 +21,41 @@ const ProductCard = () => {
       }, []);
   
   return (
-    <div >   
-       <NavBar/>
-    <div className="w-full gap-4 items-center justify-center mt-10 grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1">
-    {productData?.map((product) => (
-    <div className="w-[90%] bg-white rounded-lg shadow-md ml-5 " key={product._id}>
-        <div className="p-4">
-        <h2 className="text-xl font-semibold">{product?.name}</h2>
-        <p className="text-gray-600">{product?.category?.name}</p>
-        </div>
-    </div>
-    ))}
-    </div>
-    </div>
-  );
-};
+    <div >  
+      <div className='fixed w-full'>
+       <NavBar />
+        </div> 
+       <div className='overflow-y-auto '>
+     
+       <div className="bg-gradient-to-t from-teal-300 to-purple-400 h-auto">
+        <img className='w-full h-[650px]' src='https://wallpaperaccess.com/full/2677233.jpg' alt="images" />
+       </div>
+
+      <div className='w-70 py-[5rem] px-4 bg-white'>
+        <p className='text-center text-[#00df9a] font-medium text-4xl underline'>PRODUCTS</p>
+              <div className='max-w-[1240px] mx-auto grid md:grid-cols-4 gap-5 mt-6'>
+                  {productData?.map((product) => {
+                    return (
+                      <div key={product._id} className="w-fit h-fit shadow-2xl flex flex-col p-4  rounded-lg hover:scale-105 duration-300 text-center">
+                        <img 
+                          className="mx-auto  h-[250px] w-[300px] bg-white cursor-pointer"
+                          src={product?.photo}
+                          alt="/"
+                        />
+                        <h2 className="text-2xl font-bold text-center py-2">
+                        {product?.name}
+                        </h2> 
+                      </div>
+                    );
+                  })}
+              </div>   
+        
+          </div>
+          </div>
+          <Footer />
+          </div>
+        );
+      };
 
 
 export default ProductCard;

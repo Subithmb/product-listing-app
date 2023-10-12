@@ -26,6 +26,7 @@ const cors = require('cors');
 const path = require('path');
 const mongoose = require('./DB'); 
 const adminRouter = require('./routes/AdminRoute');
+// const cloudinary = require('cloudinary').v2;
 
 app.use(express.json());
 app.use(cors({ origin:'http://localhost:3000', credentials: true }));
@@ -46,6 +47,6 @@ db.on('error', (error) => {
   console.error('MongoDB connection error:', error);
 });
 
-db.once('open', () => {
-  console.log('MongoDB Connected');
-});
+// db.once('open', () => {
+//   console.log('MongoDB Connected');
+// });

@@ -4,6 +4,7 @@ import CategoryAdding from '../pages/CategoryAdding'
 import ProjectAdding from '../pages/ProjectAdding'
 import Home from '../pages/Home'
 import SubcategoryAdding from '../pages/Subcategoryadding'
+import ProductBycategory from '../pages/ProductBycategory'
 
 const AppRouter = () => {
 
@@ -13,6 +14,7 @@ const AppRouter = () => {
              <Route path='/addcategory' element={<CategoryAdding/>}/>
              <Route path='/addproduct' element={<ProjectAdding/>}/>
              <Route path='/addsubcategory' element={<SubcategoryAdding/>}/>
+             <Route path='/category' element={<ProductBycategory/>}/>
              <Route path='/' element={<Home/>}/>
             
           </Routes>

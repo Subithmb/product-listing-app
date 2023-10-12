@@ -6,6 +6,7 @@ import baseURL from '../Config/API'
 import axios from "axios";
 import NavBar from "./CommonComponents/Navbar";
 import { useNavigate } from "react-router-dom";
+import Footer from "./CommonComponents/Footer";
 
 const AddSubcategory = () => {
   const [name, setName] = useState("");
@@ -59,7 +60,7 @@ const AddSubcategory = () => {
     <>
     <NavBar/>
     <div  className="flex flex-wrap justify-around px-16 mt-24">
-    <p >add category / sub category</p>
+    <p className='font-semibold text-[#00df9a] text-2xl'>Add Subcategory</p>
     </div>
       <div className="flex flex-wrap justify-around px-16 mt-4">
        
@@ -71,7 +72,7 @@ const AddSubcategory = () => {
         />
       </div>
       <div  className="flex flex-wrap justify-around px-16  mb-1">
-        <p>select catgory to make this as subcategory</p>
+        <p>select category</p>
       </div>
 
        
@@ -99,8 +100,9 @@ const AddSubcategory = () => {
       </div>
 
       <div className="flex flex-wrap justify-around px-16 ">
-        <Buttons name="click" click={submit}/>
+        <Buttons name="Submit" click={submit}/>
       </div>
+      <Footer/>
     </>
   );
 };

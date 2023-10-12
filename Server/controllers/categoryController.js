@@ -120,12 +120,7 @@ const categoryDataforsubcategory=async(req,res)=>{
       console.log('came');
     
                   const categoryData=await Category.find()
-                  // const categoryData = await Category.find({
-                  //   $or: [
-                  //     { parent: null }
-                  //     ,{ parent: { $exists: false } }
-                  //   ]
-                  // });
+                 
                   
                 
                        if(!categoryData){
