@@ -15,7 +15,7 @@ const HomePage = () => {
 
     useEffect(() => {
        
-        axios.get('https://serverforproductlisting.onrender.com/categoryforsubcategory')
+        axios.get('http://localhost:5000/categoryforsubcategory')
           .then((response) => {
             // console.log(response?.data?.categoryData,'............');
             setData(response?.data?.categoryData)
@@ -46,7 +46,7 @@ const HomePage = () => {
         else{
             console.log('in else');
         setDatafeachind(true)
-        axios.get(`https://serverforproductlisting.onrender.com/getProductsByCategory?id=${id}`)
+        axios.get(`http://localhost:5000/getProductsByCategory?id=${id}`)
         .then((response) => {
             // console.log(response?.data,'............res',response?.data?.totalProductCount);
             setUpdatedData(response?.data)
@@ -63,7 +63,7 @@ const HomePage = () => {
     else{
     console.log('in else in 3rdd');
     setDatafeachind(true)
-    axios.get(`https://serverforproductlisting.onrender.com/getProductsByCategory?id=${id}`)
+    axios.get(`http://localhost:5000/getProductsByCategory?id=${id}`)
     .then((response) => {
         // console.log(response?.data,'............res',response?.data?.totalProductCount);
         setUpdatedData(response?.data)

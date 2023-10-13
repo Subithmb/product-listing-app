@@ -10,7 +10,7 @@ const ProductCard = () => {
 
     useEffect(() => {
        
-        axios.get('https://serverforproductlisting.onrender.com/products')
+        axios.get('http://localhost:5000/products')
           .then((response) => {
             // console.log(response?.data?.productData);
             setProductData(response?.data?.productData)
