@@ -1,8 +1,8 @@
 const product=require('../models/ProductModel');
-
+const mongoose = require('mongoose');
 const Category=require('../models/Category');
 const cloudinary = require('../Middileware/cloudinary')
-
+const cache = new Map();
 
 
 
@@ -218,12 +218,90 @@ async function getProductsByCategory(req, res) {
     }
 }
 
+
+
+// .....................
+
+// async function ProductsByCategory(req, res) {
+//   try {
+//       const categoryId = req.query.id;
+//       const allProducts = new Set();
+//       const categoriesToCheck = [categoryId];
+//       const categoryDetails = new Map();
+
+//       while (categoriesToCheck.length > 0) {
+//           const currentCategoryId = categoriesToCheck.pop();
+
+//           // Check if data is in cache
+//           if (cache.has(currentCategoryId)) {
+//               const cachedData = cache.get(currentCategoryId);
+//               categoryDetails.set(currentCategoryId, cachedData.categoryDetails);
+//               cachedData.categoryProducts.forEach((product) => allProducts.add(product));
+//               categoriesToCheck.push(...cachedData.subcategoryIds);
+//               continue;
+//           }
+
+//           const category = await Category.findById(currentCategoryId);
+
+//           if (!category) {
+//               continue;
+//           }
+
+//           const subcategories = await Category.find({ parent: currentCategoryId });
+//           const categoryProducts = await product.find({ category: currentCategoryId });
+
+//           const productCount = categoryProducts.length;
+
+//           if (productCount > 0) {
+//               categoryProducts.forEach((product) => {
+//                   allProducts.add(product);
+//               });
+
+//               const parentCategory = await Category.findById(category.parent);
+
+//               categoryDetails.set(currentCategoryId, {
+//                   _id: category._id,
+//                   name: category.name,
+//                   productCount,
+//                   parent: parentCategory ? { _id: parentCategory._id, name: parentCategory.name } : null,
+//                   subcategories: subcategories.map(subcategory => ({
+//                       _id: subcategory._id,
+//                       name: subcategory.name
+//                   }))
+//               });
+
+//               // Store data in cache
+//               cache.set(currentCategoryId, {
+//                   categoryDetails: categoryDetails.get(currentCategoryId),
+//                   categoryProducts,
+//                   subcategoryIds: subcategories.map(subcategory => subcategory._id)
+//               });
+//           }
+
+//           categoriesToCheck.push(...subcategories.map(subcategory => subcategory._id));
+//       }
+
+//       const categoryIdDetails = await Category.findById(categoryId);
+
+//       return res.status(201).json({
+//           categoryId: { _id: categoryIdDetails._id, name: categoryIdDetails.name },
+//           totalProductCount: allProducts.size,
+//           products: [...allProducts],
+//           categories: [...categoryDetails.values()]
+//       });
+//   } catch (error) {
+//       console.error(error);
+//       res.status(500).send("Internal Server Error");
+//   }
+// }
+
   
 
 module.exports={
     AddProduct,
     ProductDatas,
     // findProductandCategory,
-    getProductsByCategory
+    getProductsByCategory,
+    // ProductsByCategory,
 
 }

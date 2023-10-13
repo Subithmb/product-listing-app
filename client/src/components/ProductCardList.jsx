@@ -10,10 +10,12 @@ const ProductCard = () => {
 
     useEffect(() => {
        
-        axios.get('http://localhost:5000/products')
+        axios.get('https://serverforproductlisting.onrender.com/products')
           .then((response) => {
             // console.log(response?.data?.productData);
             setProductData(response?.data?.productData)
+          
+
           })
           .catch((error) => {
             console.error('An error occurred:', error);

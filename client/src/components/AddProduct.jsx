@@ -16,14 +16,14 @@ const AddProduct = () => {
     const [categoryData, setcategoryData] = useState();
     const [status, setStatus] = useState(false);
     const [nameStatus, setNamestatus] = useState(false);
-    const [photo,setphoto] = useState(null)
+    const [photo,setphoto] = useState('')
     const handleOptionChange = (event) => {
     setSelectedOption(event.target.value);
   };
 
     useEffect(() => {
    
-    axios.get('http://localhost:5000/category')
+    axios.get('https://serverforproductlisting.onrender.com/category')
       .then((response) => {
         // console.log(response?.data?.categoryData);
         setcategoryData(response?.data?.categoryData)
@@ -46,7 +46,7 @@ const AddProduct = () => {
     const subcategoryfinding=(id) => {
       
       //  console.log(id);
-        axios.get(`http://localhost:5000/categoryforAddProduct?id=${id}`)
+        axios.get(`https://serverforproductlisting.onrender.com/categoryforAddProduct?id=${id}`)
           .then((response) => {
             // console.log(response?.data?.categoryData,'dffffffffffffff');
             // console.log(response?.data?.categoryData?.length,'length');
@@ -71,7 +71,7 @@ const AddProduct = () => {
         formData.append('categoryId', selectedOption);
       
         axios
-          .post('http://localhost:5000/addProduct', formData, {
+          .post('https://serverforproductlisting.onrender.com/addProduct', formData, {
             headers: {
               'Content-Type': 'multipart/form-data',
             },
@@ -127,7 +127,7 @@ const AddProduct = () => {
        {status? <div >
         <div className="flex flex-wrap justify-around px-16 mt-7">
        <TextFields
-         name="category name"
+         name="Product name"
          type="text"
          value={name}
          onChange={handleNameChange}

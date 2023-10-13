@@ -19,7 +19,7 @@ const Addcategory = () => {
   const submit=()=>{
     console.log(name);
    
-    axios.post('http://localhost:5000/addcategory',{newCategory:name})
+    axios.post('https://serverforproductlisting.onrender.com/addcategory',{newCategory:name})
       .then((response) => {
         // console.log(response?.data?.categoryData);
         if(response?.data?.categoryData){

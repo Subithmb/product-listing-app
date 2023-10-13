@@ -17,8 +17,9 @@ const AddSubcategory = () => {
 
   useEffect(() => {
     console.log(baseURL, 'yuuuuuuuuuuuuuuuuuuuuuu');
-    axios.get('http://localhost:5000/categoryforsubcategory')
+    axios.get('https://serverforproductlisting.onrender.com/categoryforsubcategory')
       .then((response) => {
+        console.log('dataa cameeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee');
         console.log(response?.data?.categoryData);
         setcategoryData(response?.data?.categoryData)
       })
@@ -40,7 +41,7 @@ const AddSubcategory = () => {
     console.log(name,selectedOption);
     if(selectedOption!='null' && name.length>0 ){
 
-    axios.post('http://localhost:5000/addsubcategory',{newCategory:name,parent:selectedOption})
+    axios.post('https://serverforproductlisting.onrender.com/addsubcategory',{newCategory:name,parent:selectedOption})
       .then((response) => {
         console.log(response?.data?.categoryData);
         if(response?.data?.categoryData){

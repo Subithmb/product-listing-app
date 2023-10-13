@@ -1,21 +1,4 @@
 
-// const express = require('express');
-// const app = express();
-// const PORT = process.env.PORT || 5000;
-// const cookieParser = require('cookie-parser');
-// const cors = require('cors');
-// const path = require('path');
-// const mongoose = require('./DB'); 
-// const adminRouter = require("./routes/AdminRoute");
-
-// app.use(express.json());
-// app.use(cors({ origin: process.env.CORS_URL, credentials: true }));
-// app.use(cookieParser());
-// app.use(express.static(path.join(__dirname, 'public')));
-// app.options('*', cors());
-
-// app.use("/", adminRouter);
-
 
 
 const express = require('express');

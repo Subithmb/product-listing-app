@@ -14,5 +14,6 @@ adminRouter.get('/categoryforAddProduct',subcategoryfindingtoAddproduct)
 adminRouter.get('/subcategory',subcategoryfinding)
 // adminRouter.get('/findProductandCategory',findProductandCategory)
 adminRouter.get('/getProductsByCategory',getProductsByCategory)
+// adminRouter.get('/ProductsByCategory',ProductsByCategory)
 
 module.exports=adminRouter
